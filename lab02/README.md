@@ -51,6 +51,7 @@ Stride 스케줄링을 위해 `struct proc`을 확장했습니다.
 프로세스 생성 시(`allocproc`) 모든 필드를 일관된 초기값으로 설정하여,  
 이후 시스템 콜과 스케줄러 로직이 안정적으로 동작하도록 설계했습니다.
 
+
 ### 2. `settickets()` System Call
 
 사용자 프로그램이 **자신의 CPU 점유율과 실행 수명**을 직접 설정할 수 있도록  
@@ -64,6 +65,7 @@ Stride 스케줄링을 위해 `struct proc`을 확장했습니다.
 이 시스템 콜을 통해,  
 사용자 공간의 요청이 커널 스케줄링 정책에 직접 반영되도록 연결했습니다.
 
+
 ### 3. Timer Interrupt–Driven Pass Update
 
 Stride 스케줄링의 핵심은 스케줄러가 아니라 타이머 인터럽트 경로에서 pass를 누적하는 점입니다.
@@ -74,6 +76,7 @@ Stride 스케줄링의 핵심은 스케줄러가 아니라 타이머 인터럽�
 - 이후 `yield()`로 선점 발생
 이를 통해 완전한 선점형(preemptive) 스케줄링을 구현했습니다.
 
+
 ### 4. Stride-Based `scheduler()`
 
 기존 라운드 로빈 대신,
@@ -81,7 +84,7 @@ Stride 스케줄링의 핵심은 스케줄러가 아니라 타이머 인터럽�
 - 동률 시 **PID가 작은 프로세스**
 를 선택하도록 `scheduler()`를 수정했습니다.
 
-#### Rebase Strategy
+**Rebase Strategy**
 - `PASS_MAX` 초과 시 overflow 방지
 - 최소 pass 기준으로 재정렬
 - `DISTANCE_MAX`로 격차 제한
@@ -89,6 +92,7 @@ Stride 스케줄링의 핵심은 스케줄러가 아니라 타이머 인터럽�
 이 설계를 통해:
 - 장시간 실행에도 안정성 유지
 - 공정성과 비례성 동시 확보
+
 
 ### 5. Kernel Debug Logging
 
