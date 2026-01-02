@@ -52,20 +52,13 @@ xv6 운영체제의 메모리 관리 구조를 확장하여 물리 프레임 추
 이를 해결하기 위해 **전역 물리 프레임 메타데이터 테이블**을 도입했습니다.
 
 ### Key Data Structure
-'''
-struct physframe_info {
-  uint frame_index;
-  int allocated;
-  int pid;
-  uint start_tick;
-};
-'''
+**struct physframe_info**
 - 모든 PFN(Page Frame Number)에 대해 1:1 대응
 - pf_lock 스핀락으로 보호
 - 페이지 할당/해제 시 즉시 갱신
 
 ### System Call
-dump_physmem_info(buf, max)
+**dump_physmem_info(buf, max)**
 - 커널의 프레임 테이블을 사용자 공간으로 안전하게 복사
 - copyout() + 락 기반 스냅샷 보장
 
